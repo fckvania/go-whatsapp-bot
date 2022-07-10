@@ -4,8 +4,24 @@
 
 > A simple bot base built using libraries whatsmeow
 
+> This Project Support for Termux/Ubuntu/Windows
+
 ----
 
 ## Requirement
 
-This repo require a [Go](https://go.dev/) >= 1.17
+This repo require a [Go](https://go.dev/) >= 1.18
+
+## How To Install ?
+
+```bash
+git clone https://github.com/fckvania/go-whatsapp-bot.git
+cd go-whatsapp-bot
+go build .
+```
+
+## How To Run ?
+
+```bash
+go run main.go
+```
