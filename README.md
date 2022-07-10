@@ -4,7 +4,7 @@
 
 > A simple bot base built using libraries whatsmeow
 
-> This Project Support for Termux/Linux/Windows
+> This Project Support for Linux/Windows
 
 ----
 
