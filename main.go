@@ -2,25 +2,24 @@ package main
 
 import (
 	"context"
-	"log"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
-  "go.vnia.dev/message"
+	"go.vnia.dev/message"
 
-  _ "github.com/mattn/go-sqlite3"
-  "github.com/probandula/figlet4go"
-  "github.com/mdp/qrterminal"
+	_ "github.com/mattn/go-sqlite3"
+	"github.com/mdp/qrterminal"
+	"github.com/probandula/figlet4go"
 	"go.mau.fi/whatsmeow"
+	waProto "go.mau.fi/whatsmeow/binary/proto"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	"go.mau.fi/whatsmeow/types/events"
-	"google.golang.org/protobuf/proto"
-	waProto "go.mau.fi/whatsmeow/binary/proto"
 	waLog "go.mau.fi/whatsmeow/util/log"
-	
+	"google.golang.org/protobuf/proto"
 )
 
 func main() {
@@ -40,7 +39,7 @@ func main() {
 	client := whatsmeow.NewClient(deviceStore, clientLog)
 	eventHandler := registerHandler(client)
 	client.AddEventHandler(eventHandler)
-	
+
 	if client.Store.ID == nil {
 		// No ID stored, new login
 		qrChan, _ := client.GetQRChannel(context.Background())
@@ -76,21 +75,21 @@ func main() {
 }
 
 func init() {
-  ascii := figlet4go.NewAsciiRender()
-  renderStr, _ := ascii.Render("VNIA BOT")
-  // Set Browser
+	ascii := figlet4go.NewAsciiRender()
+	renderStr, _ := ascii.Render("VNIA BOT")
+	// Set Browser
 	store.DeviceProps.PlatformType = waProto.DeviceProps_SAFARI.Enum()
 	store.DeviceProps.Os = proto.String("VNIA BOT")
 	// Print Banner
-  fmt.Print(renderStr)
+	fmt.Print(renderStr)
 }
 
-func registerHandler(client *whatsmeow.Client) func(evt interface{}){
-  return func(evt interface{}) {
-    switch v := evt.(type) {
-      case *events.Message:
-        go message.Msg(client, v)
-      break
-    }
-  }
+func registerHandler(client *whatsmeow.Client) func(evt interface{}) {
+	return func(evt interface{}) {
+		switch v := evt.(type) {
+		case *events.Message:
+			go message.Msg(client, v)
+			break
+		}
+	}
 }
