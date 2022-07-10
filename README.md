@@ -12,16 +12,10 @@
 
 This repo require a [Go](https://go.dev/) >= 1.18
 
-## How To Install ?
+## How To Run ?
 
 ```bash
 git clone https://github.com/fckvania/go-whatsapp-bot.git
 cd go-whatsapp-bot
-go build .
-```
-
-## How To Run ?
-
-```bash
 go run main.go
 ```
