@@ -10,7 +10,7 @@
 
 ## Requirement
 
-This repo require a [Go](https://go.dev/) >= 1.18
+This repo require a [Go](https://go.dev/) >= 1.17
 
 ## How To Run ?
 
