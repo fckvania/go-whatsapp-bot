@@ -31,7 +31,7 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	//isGroup := msg.Info.IsGroup
         args := strings.Split(simp.GetCMD(), " ")
 	command := strings.ToLower(args[0]) 
-	query := strings.Join(args[1:], ` `)
+	//query := strings.Join(args[1:], ` `)
 	// Self
 	if self && !isOwner {
 		return
