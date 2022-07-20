@@ -90,6 +90,7 @@ func (simp *SimpleImpl) GetGroupAdmin(jid types.JID, sender string) bool {
 			return true
 		}
 	}
+	return false
 }
 
 func (simp *SimpleImpl) GetCMD() string {
