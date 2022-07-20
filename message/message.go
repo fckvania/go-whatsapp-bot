@@ -29,12 +29,15 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	isOwner := strings.Contains(sender, owner)
 	//isAdmin := simp.GetGroupAdmin(from, sender)
 	//isGroup := msg.Info.IsGroup
+        args := strings.Split(simp.GetCMD(), " ")
+	command := strings.ToLower(args[0]) 
+	query := strings.Join(args[1:], ` `)
 	// Self
 	if self && !isOwner {
 		return
 	}
 	// Switch Cmd
-	switch strings.ToLower(simp.GetCMD()) {
+	switch command {
 	case prefix + "menu":
 		buttons := []*waProto.HydratedTemplateButton{
 			{
