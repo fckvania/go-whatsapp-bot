@@ -1,6 +1,7 @@
 package message
 
 import (
+	"context"
 	"strings"
 
 	"go.vnia.dev/helper"
@@ -29,6 +30,11 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	isOwner := strings.Contains(sender, owner)
 	//isAdmin := simp.GetGroupAdmin(from, sender)
 	//isGroup := msg.Info.IsGroup
+	extended := msg.Message.GetExtendedTextMessage()
+	quotedMsg := extended.GetContextInfo().GetQuotedMessage()
+	quotedImage := quotedMsg.GetImageMessage()
+	//quotedVideo := quotedMsg.GetVideoMessage()
+	//quotedSticker := quotedMsg.GetStickerMessage()
 	// Self
 	if self && !isOwner {
 		return
@@ -49,5 +55,15 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 		simp.SendHydratedBtn(from, helper.Menu(pushName, prefix), "Author : Vnia\nLibrary : Whatsmeow", buttons)
 	case prefix + "owner":
 		simp.SendContact(from, owner, "vnia")
+	case prefix + "sticker":
+		if quotedImage != nil {
+			data, _ := client.Download(quotedImage)
+			stc := simp.CreateStickerIMG(data)
+			client.SendMessage(context.Background(), from, "", stc)
+		} else if msg.Message.GetImageMessage() != nil {
+			data, _ := client.Download(msg.Message.GetImageMessage())
+			stc := simp.CreateStickerIMG(data)
+			client.SendMessage(context.Background(), from, "", stc)
+		}
 	}
 }
