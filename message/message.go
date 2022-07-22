@@ -26,6 +26,9 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	// dll
 	from := msg.Info.Chat
 	sender := msg.Info.Sender.String()
+	args := strings.Split(simp.GetCMD(), " ")
+	command := strings.ToLower(args[0])
+	//query := strings.Join(args[1:], ` `)
 	pushName := msg.Info.PushName
 	isOwner := strings.Contains(sender, owner)
 	//isAdmin := simp.GetGroupAdmin(from, sender)
@@ -40,7 +43,7 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 		return
 	}
 	// Switch Cmd
-	switch strings.ToLower(simp.GetCMD()) {
+	switch command {
 	case prefix + "menu":
 		buttons := []*waProto.HydratedTemplateButton{
 			{
