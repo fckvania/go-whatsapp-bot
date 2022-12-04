@@ -39,17 +39,17 @@ func (simp *SimpleImpl) Reply(teks string) {
 	})
 }
 
-/*func (simp *SimpleImpl) SendHydratedBtn(jid types.JID, teks string, foter string, buttons []*waProto.HydratedTemplateButton) {
+func (simp *SimpleImpl) SendHydratedBtn(jid types.JID, teks string, foter string, buttons []*waProto.HydratedTemplateButton) {
 	simp.VClient.SendMessage(context.Background(), jid, "", &waProto.Message{
 		TemplateMessage: &waProto.TemplateMessage{
-			HydratedTemplate: &waProto.HydratedFourRowTemplate{
+			HydratedTemplate: &waProto.TemplateMessage_HydratedFourRowTemplate{
 				HydratedContentText: proto.String(teks),
 				HydratedFooterText:  proto.String(foter),
 				HydratedButtons:     buttons,
 			},
 		},
 	})
-}*/
+}
 
 func (simp *SimpleImpl) SendContact(jid types.JID, number string, nama string) {
 	simp.VClient.SendMessage(context.Background(), jid, "", &waProto.Message{

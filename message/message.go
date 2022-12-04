@@ -2,6 +2,8 @@ package message
 
 import (
 	"context"
+	waProto "go.mau.fi/whatsmeow/binary/proto"
+	"google.golang.org/protobuf/proto"
 	"strings"
 
 	"go.mau.fi/whatsmeow"
@@ -42,18 +44,17 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	// Switch Cmd
 	switch command {
 	case prefix + "menu":
-		/*buttons := []*waProto.HydratedTemplateButton{
+		buttons := []*waProto.HydratedTemplateButton{
 			{
 				HydratedButton: &waProto.HydratedTemplateButton_QuickReplyButton{
-					QuickReplyButton: &waProto.HydratedQuickReplyButton{
+					QuickReplyButton: &waProto.HydratedTemplateButton_HydratedQuickReplyButton{
 						DisplayText: proto.String("OWNER"),
 						Id:          proto.String(prefix + "owner"),
 					},
 				},
 			},
 		}
-		simp.SendHydratedBtn(from, helper.Menu(pushName, prefix), "Author : Vnia\nLibrary : Whatsmeow", buttons)*/
-		simp.Reply(helper.Menu(pushName, prefix))
+		simp.SendHydratedBtn(from, helper.Menu(pushName, prefix), "Author : Vnia\nLibrary : Whatsmeow", buttons)
 	case prefix + "owner":
 		simp.SendContact(from, owner, "vnia")
 	case prefix + "sticker":
