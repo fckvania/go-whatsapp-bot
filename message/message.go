@@ -4,20 +4,17 @@ import (
 	"context"
 	"strings"
 
+	"go.mau.fi/whatsmeow"
+	"go.mau.fi/whatsmeow/types/events"
 	"go.vnia.dev/helper"
 	"go.vnia.dev/lib"
-	"google.golang.org/protobuf/proto"
-
-	"go.mau.fi/whatsmeow"
-	waProto "go.mau.fi/whatsmeow/binary/proto"
-	"go.mau.fi/whatsmeow/types/events"
 )
 
 // Config
 var (
 	prefix = "!"
 	self   = true
-	owner  = "6281236031617"
+	owner  = "6289636559820"
 )
 
 func Msg(client *whatsmeow.Client, msg *events.Message) {
@@ -45,7 +42,7 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	// Switch Cmd
 	switch command {
 	case prefix + "menu":
-		buttons := []*waProto.HydratedTemplateButton{
+		/*buttons := []*waProto.HydratedTemplateButton{
 			{
 				HydratedButton: &waProto.HydratedTemplateButton_QuickReplyButton{
 					QuickReplyButton: &waProto.HydratedQuickReplyButton{
@@ -55,7 +52,8 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 				},
 			},
 		}
-		simp.SendHydratedBtn(from, helper.Menu(pushName, prefix), "Author : Vnia\nLibrary : Whatsmeow", buttons)
+		simp.SendHydratedBtn(from, helper.Menu(pushName, prefix), "Author : Vnia\nLibrary : Whatsmeow", buttons)*/
+		simp.Reply(helper.Menu(pushName, prefix))
 	case prefix + "owner":
 		simp.SendContact(from, owner, "vnia")
 	case prefix + "sticker":
