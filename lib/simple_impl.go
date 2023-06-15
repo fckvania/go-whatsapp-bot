@@ -27,7 +27,7 @@ func NewSimpleImpl(Cli *whatsmeow.Client, m *events.Message) *SimpleImpl {
 }
 
 func (simp *SimpleImpl) Reply(teks string) {
-	simp.VClient.SendMessage(context.Background(), simp.Msg.Info.Chat, "", &waProto.Message{
+	_, err := simp.VClient.SendMessage(context.Background(), simp.Msg.Info.Chat, &waProto.Message{
 		ExtendedTextMessage: &waProto.ExtendedTextMessage{
 			Text: proto.String(teks),
 			ContextInfo: &waProto.ContextInfo{
@@ -37,10 +37,13 @@ func (simp *SimpleImpl) Reply(teks string) {
 			},
 		},
 	})
+	if err != nil {
+		return
+	}
 }
 
 func (simp *SimpleImpl) SendHydratedBtn(jid types.JID, teks string, foter string, buttons []*waProto.HydratedTemplateButton) {
-	simp.VClient.SendMessage(context.Background(), jid, "", &waProto.Message{
+	_, err := simp.VClient.SendMessage(context.Background(), jid, &waProto.Message{
 		TemplateMessage: &waProto.TemplateMessage{
 			HydratedTemplate: &waProto.TemplateMessage_HydratedFourRowTemplate{
 				HydratedContentText: proto.String(teks),
@@ -49,10 +52,13 @@ func (simp *SimpleImpl) SendHydratedBtn(jid types.JID, teks string, foter string
 			},
 		},
 	})
+	if err != nil {
+		return
+	}
 }
 
 func (simp *SimpleImpl) SendContact(jid types.JID, number string, nama string) {
-	simp.VClient.SendMessage(context.Background(), jid, "", &waProto.Message{
+	_, err := simp.VClient.SendMessage(context.Background(), jid, &waProto.Message{
 		ContactMessage: &waProto.ContactMessage{
 			DisplayName: proto.String(nama),
 			Vcard:       proto.String(fmt.Sprintf("BEGIN:VCARD\nVERSION:3.0\nN:%s;;;\nFN:%s\nitem1.TEL;waid=%s:+%s\nitem1.X-ABLabel:Mobile\nEND:VCARD", nama, nama, number, number)),
@@ -63,6 +69,9 @@ func (simp *SimpleImpl) SendContact(jid types.JID, number string, nama string) {
 			},
 		},
 	})
+	if err != nil {
+		return
+	}
 }
 
 func (simp *SimpleImpl) FetchGroupAdmin(Jid types.JID) ([]string, error) {

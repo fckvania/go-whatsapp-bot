@@ -10,10 +10,8 @@ import (
 	"go.vnia.dev/lib"
 )
 
-// Config
 var (
 	prefix = "!"
-	self   = true
 	owner  = "6289636559820"
 )
 
@@ -36,7 +34,7 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 	//quotedVideo := quotedMsg.GetVideoMessage()
 	//quotedSticker := quotedMsg.GetStickerMessage()
 	// Self
-	if self && !isOwner {
+	if !isOwner {
 		return
 	}
 	// Switch Cmd
@@ -51,11 +49,17 @@ func Msg(client *whatsmeow.Client, msg *events.Message) {
 		if quotedImage != nil {
 			data, _ := client.Download(quotedImage)
 			stc := simp.CreateStickerIMG(data)
-			client.SendMessage(context.Background(), from, "", stc)
+			_, err := client.SendMessage(context.Background(), from, stc)
+			if err != nil {
+				return
+			}
 		} else if msg.Message.GetImageMessage() != nil {
 			data, _ := client.Download(msg.Message.GetImageMessage())
 			stc := simp.CreateStickerIMG(data)
-			client.SendMessage(context.Background(), from, "", stc)
+			_, err := client.SendMessage(context.Background(), from, stc)
+			if err != nil {
+				return
+			}
 		}
 	}
 }
